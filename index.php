@@ -168,9 +168,7 @@
 
     function message($msg, $status){
         return "<div class='col-lg-7 col-lg-offset-2'><div class='alert alert-$status'>$msg</div></div>";
-    }
-
-    
+    }    
 
 ?>
 <!DOCTYPE html>

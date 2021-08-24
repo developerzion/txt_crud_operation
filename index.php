@@ -18,7 +18,7 @@
     }
 
     
-    //
+    //  
     if(isset($_POST['register'])){
 
         //Setting the timezone
@@ -167,7 +167,17 @@
     }
 
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <title>Performing CRUD operation on a txt file</title>
+</head>
+<body>
+<center>
 <h3>Performing CRUD operation on txt file using PHP</h3>
 <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
@@ -273,3 +283,6 @@
     ?>
 
 </table>
+</center>
+</body>
+</html>

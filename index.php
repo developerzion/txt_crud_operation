@@ -170,6 +170,8 @@
         return "<div class='col-lg-7 col-lg-offset-2'><div class='alert alert-$status'>$msg</div></div>";
     }
 
+    
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,7 +187,7 @@
 <center>
 <div class="row">
     <div class="col-lg-7 col-lg-offset-2">
-    <h3>Performing CRUD operation on txt file using PHP</h3>
+    <h3>Performing CRUD operation on txt file using PHP </h3>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
             <input type="hidden" name="myid" value="<?php if(isset($upid)){ echo $upid; } ?>">
@@ -219,7 +221,7 @@
                 </tr>
                 <tr>
                     <td>Age:</td>
-                    <td><input type="text" class="form-control" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
+                    <td><input type="number" class="form-control" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -235,7 +237,7 @@
         </form>
 
 
-        <h3>Records</h3>
+        <h3>Records</h3> 
         <table class="table table-bordered table-hover">
 
             <tr>
@@ -298,7 +300,14 @@
         </table>        
     </div> 
 </div>
+<a target="_blank" href="https://github.com/developerzion">Github</a> | <a target="_blank" href="https://www.youtube.com/channel/UCe0t7d9o4kd9gc9_sdUL_TA">Youtube Channel</a>
 </center>
 
 </body>
 </html>
+<?php
+
+
+
+?>
+

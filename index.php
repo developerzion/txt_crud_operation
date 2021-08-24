@@ -167,7 +167,7 @@
     }
 
     function message($msg, $status){
-        return "<div class='alert alert-$status'>$msg</div>";
+        return "<div class='col-lg-7 col-lg-offset-2'><div class='alert alert-$status'>$msg</div></div>";
     }
 
 ?>
@@ -183,117 +183,122 @@
 </head>
 <body>
 <center>
-<h3>Performing CRUD operation on txt file using PHP</h3>
-<form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+<div class="row">
+    <div class="col-lg-7 col-lg-offset-2">
+    <h3>Performing CRUD operation on txt file using PHP</h3>
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 
-    <input type="hidden" name="myid" value="<?php if(isset($upid)){ echo $upid; } ?>">
+            <input type="hidden" name="myid" value="<?php if(isset($upid)){ echo $upid; } ?>">
 
-    <table class="table table-bordered table-hover">
-        <tr>
-            <td>Email:</td>
-            <td><input class="form-control" type="text" value="<?php if(isset($upemail)){ echo $upemail; } ?>" name="email" required <?php if (isset($_POST['updateRecord'])) { echo "readonly"; } ?>></td>
-        </tr>
-        <tr>
-            <td>Firstname:</td>
-            <td><input class="form-control" type="text" value="<?php if(isset($upfirstname)){ echo $upfirstname; } ?>" name="fname" required></td>
-        </tr>
-        <tr>
-            <td>Surname:</td>
-            <td><input type="text" class="form-control" name="sname" value="<?php if(isset($upsurname)){ echo $upsurname; } ?>" required></td>
-        </tr>
-        <tr>
-            <td>Gender:</td>
-            <td>
-                <select name="gender" required class="form-control">
-                    <?php if(isset($upgender)){ ?>    
-                    <option><?php echo $upgender; ?></option>
-                    <?php }else{ ?>
-                    <option value="">-- Select Gender --</option>
-                    <?php } ?>
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Age:</td>
-            <td><input type="text" class="form-control" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <?php if(isset($_POST['updateRecord'])){ ?>
-                    <button class="btn btn-info"  name="updateRecords">Update</button>
-                <?php }else{ ?>
-                    <button class="btn btn-success" name="register">Register</button>
-                <?php } ?>
-            </td>
-        </tr>
-    </table>
-</form>
+            <table class="table table-bordered table-hover ">
+                <tr>
+                    <td>Email:</td>
+                    <td><input class="form-control" type="text" value="<?php if(isset($upemail)){ echo $upemail; } ?>" name="email" required <?php if (isset($_POST['updateRecord'])) { echo "readonly"; } ?>></td>
+                </tr>
+                <tr>
+                    <td>Firstname:</td>
+                    <td><input class="form-control" type="text" value="<?php if(isset($upfirstname)){ echo $upfirstname; } ?>" name="fname" required></td>
+                </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td><input type="text" class="form-control" name="sname" value="<?php if(isset($upsurname)){ echo $upsurname; } ?>" required></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>
+                        <select name="gender" required class="form-control">
+                            <?php if(isset($upgender)){ ?>    
+                            <option><?php echo $upgender; ?></option>
+                            <?php }else{ ?>
+                            <option value="">-- Select Gender --</option>
+                            <?php } ?>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Age:</td>
+                    <td><input type="text" class="form-control" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <?php if(isset($_POST['updateRecord'])){ ?>
+                            <button class="btn btn-info"  name="updateRecords">Update</button>
+                        <?php }else{ ?>
+                            <button class="btn btn-success" name="register">Register</button>
+                        <?php } ?>
+                    </td>
+                </tr>
+            </table>
+        </form>
 
 
-<h3>Records</h3>
-<table class="table table-bordered table-hover">
+        <h3>Records</h3>
+        <table class="table table-bordered table-hover">
 
-    <tr>
-        <td>Id</td>
-        <td>Email</td>
-        <td>Firstname</td>
-        <td>Surname</td>
-        <td>Gender</td>
-        <td>Age</td>
-        <td>Action</td>
-    </tr>
-    
-    <?php
+            <tr>
+                <td>Id</td>
+                <td>Email</td>
+                <td>Firstname</td>
+                <td>Surname</td>
+                <td>Gender</td>
+                <td>Age</td>
+                <td>Action</td>
+            </tr>
+            
+            <?php
 
-        //======================================================
-        //------------START INSERT RECORDS INTO TABLE-----------
-        //======================================================
+                //======================================================
+                //------------START INSERT RECORDS INTO TABLE-----------
+                //======================================================
 
-        $array = file($database);  
-        if(count($array) < 1){
-            echo "<tr><td colspan='7' style='text-align:center'>No record found</td></tr>";
-        }else{           
-            for ($i=0; $i < count($array); $i++) {        
-                $getdata = $array[$i];
-                $each = explode("|", $getdata);
-                
-                //Get data from each row
-                $id = $each[0];
-                $email = $each[1];
-                $firstname = $each[2];
-                $surname = $each[3];
-                $gender = $each[4];
-                $age = $each[5];
+                $array = file($database);  
+                if(count($array) < 1){
+                    echo "<tr><td colspan='7' style='text-align:center'>No record found</td></tr>";
+                }else{           
+                    for ($i=0; $i < count($array); $i++) {        
+                        $getdata = $array[$i];
+                        $each = explode("|", $getdata);
+                        
+                        //Get data from each row
+                        $id = $each[0];
+                        $email = $each[1];
+                        $firstname = $each[2];
+                        $surname = $each[3];
+                        $gender = $each[4];
+                        $age = $each[5];
 
-                ?>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                    <tr>
-                        <td><?php echo $id; ?></td>
-                        <td><?php echo $email; ?></td>
-                        <td><?php echo $firstname; ?></td>
-                        <td><?php echo $surname; ?></td>
-                        <td><?php echo $gender; ?></td>
-                        <td><?php echo $age; ?></td>
-                        <td>
-                            <input type="hidden" value="<?php echo $id; ?>" name="rowid">
-                            <button name="delRecord" class="btn btn-danger">X</button>                        
-                            <button name="updateRecord" class="btn btn-info">UPDATE</button>                        
-                        </td>
-                    </tr>
-                </form>
-                <?php
-            }
-        }
+                        ?>
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <tr>
+                                <td><?php echo $id; ?></td>
+                                <td><?php echo $email; ?></td>
+                                <td><?php echo $firstname; ?></td>
+                                <td><?php echo $surname; ?></td>
+                                <td><?php echo $gender; ?></td>
+                                <td><?php echo $age; ?></td>
+                                <td>
+                                    <input type="hidden" value="<?php echo $id; ?>" name="rowid">
+                                    <button name="delRecord" class="btn btn-danger">X</button>                        
+                                    <button name="updateRecord" class="btn btn-info">UPDATE</button>                        
+                                </td>
+                            </tr>
+                        </form>
+                        <?php
+                    }
+                }
 
-        //======================================================
-        //------------STOP INSERT RECORDS INTO TABLE-----------
-        //======================================================    
-    ?>
+                //======================================================
+                //------------STOP INSERT RECORDS INTO TABLE-----------
+                //======================================================    
+            ?>
 
-</table>
+        </table>        
+    </div> 
+</div>
 </center>
+
 </body>
 </html>

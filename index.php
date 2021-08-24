@@ -52,17 +52,17 @@
         }
 
         if($emailexists){
-            echo "Email address has been taken";
+            echo message("Email address has been taken","danger");
         }else{
             $data = array($id,$fullname,$surname,$gender,$age);
             $data = $id."|".$email."|".$fullname."|".$surname."|".$gender."|".$age."\n";            
 
             $file = fopen($database, "a");
             if(fwrite($file, $data)){
-                echo "Registration Successful";
+                echo message("Registration Successful","success");
                 fclose($file);
             }else{
-                echo "Error occured: Unable to register account";
+                echo message("Error occured: Unable to register account","danger");
             }               
         }
     }
@@ -90,7 +90,7 @@
 
         $file = fopen($database, "w");
         if(fwrite($file, $newlist)){
-            echo "Record deleted";
+            echo message("Record Deleted","success");
             fclose($file);
         }               
     }
@@ -161,9 +161,13 @@
 
         $file = fopen($database, "w");
         if(fwrite($file, $updaterow)){
-            echo "Record Updated";
+            echo message("Record Updated","success");
             fclose($file);
         }   
+    }
+
+    function message($msg, $status){
+        return "<div class='alert alert-$status'>$msg</div>";
     }
 
 ?>
@@ -174,6 +178,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <title>Performing CRUD operation on a txt file</title>
 </head>
 <body>
@@ -183,23 +188,23 @@
 
     <input type="hidden" name="myid" value="<?php if(isset($upid)){ echo $upid; } ?>">
 
-    <table>
+    <table class="table table-bordered table-hover">
         <tr>
             <td>Email:</td>
-            <td><input type="text" value="<?php if(isset($upemail)){ echo $upemail; } ?>" name="email" required <?php if (isset($_POST['updateRecord'])) { echo "readonly"; } ?>></td>
+            <td><input class="form-control" type="text" value="<?php if(isset($upemail)){ echo $upemail; } ?>" name="email" required <?php if (isset($_POST['updateRecord'])) { echo "readonly"; } ?>></td>
         </tr>
         <tr>
             <td>Firstname:</td>
-            <td><input type="text" value="<?php if(isset($upfirstname)){ echo $upfirstname; } ?>" name="fname" required></td>
+            <td><input class="form-control" type="text" value="<?php if(isset($upfirstname)){ echo $upfirstname; } ?>" name="fname" required></td>
         </tr>
         <tr>
             <td>Surname:</td>
-            <td><input type="text" name="sname" value="<?php if(isset($upsurname)){ echo $upsurname; } ?>" required></td>
+            <td><input type="text" class="form-control" name="sname" value="<?php if(isset($upsurname)){ echo $upsurname; } ?>" required></td>
         </tr>
         <tr>
             <td>Gender:</td>
             <td>
-                <select name="gender" required>
+                <select name="gender" required class="form-control">
                     <?php if(isset($upgender)){ ?>    
                     <option><?php echo $upgender; ?></option>
                     <?php }else{ ?>
@@ -212,22 +217,24 @@
         </tr>
         <tr>
             <td>Age:</td>
-            <td><input type="text" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
+            <td><input type="text" class="form-control" value="<?php if(isset($upage)){ echo $upage; } ?>" name="age" required></td>
         </tr>
         <tr>
             <td></td>
             <td>
                 <?php if(isset($_POST['updateRecord'])){ ?>
-                    <button style="background-color:blue;color:white;font-weight:bold" name="updateRecords">Update</button>
+                    <button class="btn btn-info"  name="updateRecords">Update</button>
                 <?php }else{ ?>
-                    <button style="background-color:green;color:white;font-weight:bold" name="register">Register</button>
+                    <button class="btn btn-success" name="register">Register</button>
                 <?php } ?>
             </td>
         </tr>
     </table>
 </form>
 
-<table border="1" cellpadding="0" cellspacing="0" width="70%">
+
+<h3>Records</h3>
+<table class="table table-bordered table-hover">
 
     <tr>
         <td>Id</td>
@@ -245,36 +252,40 @@
         //------------START INSERT RECORDS INTO TABLE-----------
         //======================================================
 
-        $array = file($database);                
-        for ($i=0; $i < count($array); $i++) {        
-            $getdata = $array[$i];
-            $each = explode("|", $getdata);
-            
-            //Get data from each row
-            $id = $each[0];
-            $email = $each[1];
-            $firstname = $each[2];
-            $surname = $each[3];
-            $gender = $each[4];
-            $age = $each[5];
+        $array = file($database);  
+        if(count($array) < 1){
+            echo "<tr><td colspan='7' style='text-align:center'>No record found</td></tr>";
+        }else{           
+            for ($i=0; $i < count($array); $i++) {        
+                $getdata = $array[$i];
+                $each = explode("|", $getdata);
+                
+                //Get data from each row
+                $id = $each[0];
+                $email = $each[1];
+                $firstname = $each[2];
+                $surname = $each[3];
+                $gender = $each[4];
+                $age = $each[5];
 
-            ?>
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-                <tr>
-                    <td><?php echo $id; ?></td>
-                    <td><?php echo $email; ?></td>
-                    <td><?php echo $firstname; ?></td>
-                    <td><?php echo $surname; ?></td>
-                    <td><?php echo $gender; ?></td>
-                    <td><?php echo $age; ?></td>
-                    <td>
-                        <input type="hidden" value="<?php echo $id; ?>" name="rowid">
-                        <button name="delRecord" style="background-color:red;color:white;font-weight:bold;">X</button>                        
-                        <button name="updateRecord" style="background-color:green;color:white;font-weight:bold;">UPDATE</button>                        
-                    </td>
-                </tr>
-            </form>
-            <?php
+                ?>
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                    <tr>
+                        <td><?php echo $id; ?></td>
+                        <td><?php echo $email; ?></td>
+                        <td><?php echo $firstname; ?></td>
+                        <td><?php echo $surname; ?></td>
+                        <td><?php echo $gender; ?></td>
+                        <td><?php echo $age; ?></td>
+                        <td>
+                            <input type="hidden" value="<?php echo $id; ?>" name="rowid">
+                            <button name="delRecord" class="btn btn-danger">X</button>                        
+                            <button name="updateRecord" class="btn btn-info">UPDATE</button>                        
+                        </td>
+                    </tr>
+                </form>
+                <?php
+            }
         }
 
         //======================================================

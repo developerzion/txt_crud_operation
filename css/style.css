@@ -1,0 +1,33 @@
+
+
+h1{
+    color:white;			
+    font-size: 50px;
+}
+h3{
+    color:#f8ce6f;
+}
+.items{
+    width: 65em;
+    height: 30px;
+    box-shadow: 0 0 10px #00ffc3;
+    border: 0px solid rgba(0,0,0,1);
+}
+input[type=text]{
+    padding-left: 10px;
+}
+.addbtn{
+    background-color: #00ffc3;
+    color: white!important;
+    border: 0px;
+    padding: 9px 20px;
+    font-weight: bolder
+}
+.todo-danger{
+    background-color: red;
+}
+.remove{
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}

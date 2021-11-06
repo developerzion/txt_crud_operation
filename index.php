@@ -24,7 +24,7 @@
         //Setting the timezone
         date_default_timezone_set("Africa/Lagos");
         //Generating random number for unique id
-        $id = mt_rand();
+        $id = uniqid();
 
         //Post values
         $email = $_POST['email'];
